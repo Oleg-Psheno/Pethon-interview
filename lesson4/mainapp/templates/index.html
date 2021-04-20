@@ -8,6 +8,18 @@
     <title>Document</title>
 </head>
 <body>
-<h1>Hello from HTML</h1>
+<h1> Главная страница</h1>
+<h3>Товары:</h3>
+<a href="{% url 'new_good' %}">
+    <button>Добавить товар</button>
+</a>
+{% for item in goods %}
+   <div class="item">
+    <p>Наименование товара - {{ item.name }}</p>
+    <p>Остаток на складе  - {{ item.quantity}}</p>
+    <p>{{ item.description }}</p>
+       <br>
+   </div>
+{% endfor %}
 </body>
 </html>
