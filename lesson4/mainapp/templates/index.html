@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block title %}
     <title>Главная</title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock %}
 
 {%  block content %}
@@ -10,9 +15,25 @@
             <h1> Главная страница</h1>
 
         <h3>Товары:</h3>
-        <a href="{% url 'new_good' %}">
-            <button>Добавить товар</button>
-        </a>
+{#        <a href="{% url 'new_good' %}">#}
+{#            <button>Добавить товар</button>#}
+{#        </a>#}
+
+        <a class="popup-open" href="#">Добавить новый товар</a>
+
+        <div class="popup-fade">
+            <div class="popup">
+                <a class="popup-close" href="#">Закрыть</a>
+                <h3>Добавление товара</h3>
+
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Отправить">
+                </form>
+            </div>
+        </div>
+
 
         <div class="row"  id="test"></div>
 
