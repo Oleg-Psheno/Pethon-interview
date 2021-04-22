@@ -1,11 +1,14 @@
-from django.shortcuts import render,HttpResponseRedirect,reverse
+from django.shortcuts import render, HttpResponseRedirect, reverse, HttpResponse
 from .models import Good
 from .forms import AddForm
+from django.core import serializers
+
 
 def index(request):
     goods = Good.objects.all()
-    context = {'goods':goods}
-    return render(request,'index.html', context=context)
+    context = {'goods': goods}
+    return render(request, 'index.html', context=context)
+
 
 def add_good(request):
     if request.method == 'POST':
@@ -15,6 +18,13 @@ def add_good(request):
             return HttpResponseRedirect(reverse('index'))
     else:
         form = AddForm()
-    context = {'form':form}
+    context = {'form': form}
 
-    return render(request,'add_good.html', context)
+    return render(request, 'add_good.html', context)
+
+
+def ajax_handler(request):
+    goods = Good.objects.all()
+    data = serializers.serialize('json',goods)
+    return HttpResponse(data, content_type='text/html')
+
